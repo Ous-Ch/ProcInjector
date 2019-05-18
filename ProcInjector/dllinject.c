@@ -17,7 +17,6 @@ BOOL DllInject()
 	scanf("%s", pname);
 
 	printf(">> Dll path: %s", DLLPATH);
-	//scanf("%s", dllpath);
 
 	if ((pid = GetPid(pname)) != -1)
 	{

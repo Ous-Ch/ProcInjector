@@ -3,7 +3,6 @@
 int main(int argc, char **argv)
 {
 	int techNum;
-	char pname[] = "explorer.exe";
 
 	puts("-----------------------------------");
 	puts("      [> PROCESS INJECTOR <]"        );
