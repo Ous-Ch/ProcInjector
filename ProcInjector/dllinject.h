@@ -5,6 +5,6 @@
 
 // prototype
 BOOL DllInject();
-
+FARPROC GetAddrFunc(char*, char*);
 
 #endif
