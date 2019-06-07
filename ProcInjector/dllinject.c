@@ -13,6 +13,8 @@ BOOL DllInject()
 	FARPROC AddrFunc;
 	HANDLE hremoteThread;
 
+	EnableDebugPrivilege();
+
 	printf("\n>> Enter the process name: ");
 	scanf("%s", pname);
 
@@ -107,4 +109,23 @@ FARPROC GetAddrFunc(char *dllModuleName, char *funcName)
 	FreeLibrary(hkerneldll);
 
 	return NULL; 
+}
+
+void EnableDebugPrivilege()
+{
+	TOKEN_PRIVILEGES priv;
+	HANDLE htoken;
+	LUID luid;	// locally Unique Identifier
+
+	OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES|TOKEN_QUERY, &htoken);
+
+	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
+
+	priv.PrivilegeCount = 1;
+	priv.Privileges[0].Luid = luid;
+	priv.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+	AdjustTokenPrivileges(htoken, FALSE, &priv, sizeof(priv), NULL, NULL);
+
+	CloseHandle(htoken);
 }
